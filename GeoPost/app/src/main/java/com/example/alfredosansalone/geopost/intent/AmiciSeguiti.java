@@ -44,7 +44,7 @@ public class AmiciSeguiti extends AppCompatActivity {
 
     }
 
-    //forse ho capito come funziona
+    //forse ho capito come funziona!!
     // PULSANTE MENU A SCOMPARSA
     public void Menu(View v){
         ImageButton profilo = (ImageButton) findViewById(R.id.profilo);
