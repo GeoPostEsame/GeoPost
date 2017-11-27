@@ -1,0 +1,31 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <!--
+      METTERE QUI LA MAPPA
+      HINT: USARE MapView (https://developers.google.com/android/reference/com/google/android/gms/maps/MapView)
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    -->
+
+    <TextView
+        android:id="@+id/map_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="mappa" />
+
+    <!-- <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.SupportMapFragment" /> -->
+
+</LinearLayout>

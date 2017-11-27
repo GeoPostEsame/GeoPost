@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.alfredosansalone.geopost">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".intent.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".intent.AmiciSeguiti" />
+        <activity
+            android:name=".intent.AggStato"
+            android:label="GeoPost - Agg Stato"
+            android:parentActivityName=".intent.AmiciSeguiti" />
+        <activity
+            android:name=".intent.Profilo"
+            android:label="GeoPost - Profilo"
+            android:parentActivityName=".intent.AmiciSeguiti" />
+        <activity android:name=".intent.AggAmici"
+            android:label="GeoPost - AggAmici"
+            android:parentActivityName=".intent.AmiciSeguiti"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBwAr8-x66nuv65gSJE1IZG6VMGtl5rWUw"/>
+    </application>
+
+</manifest>
