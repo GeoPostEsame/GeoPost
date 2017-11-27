@@ -43,15 +43,18 @@ public class AmiciSeguiti extends AppCompatActivity {
         transaction.commit();
 
     }
-    //Modifica commento Alfre Git
+
+
     // PULSANTE MENU A SCOMPARSA
     public void Menu(View v){
         ImageButton profilo = (ImageButton) findViewById(R.id.profilo);
         ImageButton aggamico = (ImageButton) findViewById(R.id.aggamici);
         if(profilo.getVisibility() == View.INVISIBLE) {
+            Log.d("Button", "VISIBLE");
             profilo.setVisibility(View.VISIBLE);
             aggamico.setVisibility(View.VISIBLE);
         }else{
+            Log.d("Button", "INVISIBLE");
             profilo.setVisibility(View.INVISIBLE);
             aggamico.setVisibility(View.INVISIBLE);
         }
