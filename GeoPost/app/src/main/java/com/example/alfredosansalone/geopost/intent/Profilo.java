@@ -9,9 +9,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
 
 public class Profilo extends AppCompatActivity {
+
+    MyModel myModel;
+    String idsession;
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +30,38 @@ public class Profilo extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        queue = Volley.newRequestQueue(this);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        idsession = myModel.getInstance().getIdsession();
     }
 
     public void Logout(View v) {
+
+        String url = "https://ewserver.di.unimi.it/mobicomp/geopost/logout?session_id=" + idsession;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("Logout", "response is " + response);
+                        Log.d("Logout", "Logout");
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Logout", "That didn't work!");
+            }
+        });
+        queue.add(stringRequest);
+
         Log.d("Sono nella MainActivity", "myTap");
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
