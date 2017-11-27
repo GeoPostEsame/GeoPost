@@ -43,7 +43,7 @@ public class AmiciSeguiti extends AppCompatActivity {
         transaction.commit();
 
     }
-
+    //Modifica commento Alfre Git
     // PULSANTE MENU A SCOMPARSA
     public void Menu(View v){
         ImageButton profilo = (ImageButton) findViewById(R.id.profilo);
