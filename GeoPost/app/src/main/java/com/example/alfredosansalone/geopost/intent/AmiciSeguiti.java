@@ -60,7 +60,6 @@ public class AmiciSeguiti extends AppCompatActivity {
 
     }
 
-    //Commento a caso
     // INTENT PER APRIRE NUOVE ACTIVITY
     public void Stato(View v) {
         Log.d("Sono nella MainActivity", "myTap");
