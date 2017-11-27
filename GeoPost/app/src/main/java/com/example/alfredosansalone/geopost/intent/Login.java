@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,30 +20,50 @@ import com.example.alfredosansalone.geopost.R;
 
 public class Login extends AppCompatActivity {
 
+    EditText username;
+    EditText password;
+    String user;
+    String passw;
     String risp;
-    //MySingleton id_se;
+    MyModel myModel;
+    String url;
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText username = (EditText)findViewById(R.id.username);
-        EditText password = (EditText)findViewById(R.id.password);
-        String user = username.getText().toString();
-        String passw = password.getText().toString();
+        username = (EditText)findViewById(R.id.username);
+        password = (EditText)findViewById(R.id.password);
 
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://ewserver.di.unimi.it/mobicomp/geopost/login";
+
+
+        queue = Volley.newRequestQueue(this);
+        url ="https://ewserver.di.unimi.it/mobicomp/geopost/login";
 
         //queue.add(LoginRequest);
+
+        // Add the request to the RequestQueue.
+
+    }
+
+
+    public void Login(View v){
+
+        user = username.getText().toString();
+        passw = password.getText().toString();
+        Log.d("Login", "User = "+ user);
+        Log.d("Login", "Password = "+ passw);
+
         LoginRequest loginRequest= new LoginRequest(user, passw, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         risp = response;
                         // Display the first 500 characters of the response string.
-                        Log.d("Login", "Response is: "+ risp);
+                        Log.d("Login", "Response is: "+ response);
+                        Log.d("Login ", "risp = "+ risp);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -51,15 +72,18 @@ public class Login extends AppCompatActivity {
                 Log.d("Login", "That didn't work!");
             }
         });
-        // Add the request to the RequestQueue.
+
         queue.add(loginRequest);
-    }
 
+        myModel.getInstance().setIdsession(risp);
 
-    public void Login(View v){
         Log.d("Sono nella MainActivity", "myTap");
-        Intent intent = new Intent(this, AmiciSeguiti.class);
-        startActivity(intent);
+        if(risp != "That didn't work!") {
+            Intent intent = new Intent(this, AmiciSeguiti.class);
+            startActivity(intent);
+        }
 
     }
+
+
 }
