@@ -33,6 +33,7 @@ public class AmiciSeguiti extends AppCompatActivity {
         }
     }
 
+    //Ciao
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
