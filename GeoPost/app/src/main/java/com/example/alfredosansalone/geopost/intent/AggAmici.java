@@ -17,7 +17,7 @@ public class AggAmici extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    //speriamo funzioni
+    //speriamo funzioni davvero
     public void Aggiungi(View v) {
         Log.d("Sono nella MainActivity", "myTap");
         Intent intent = new Intent(this, AmiciSeguiti.class);
