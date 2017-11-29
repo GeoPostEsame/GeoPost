@@ -67,9 +67,12 @@ public class Login extends AppCompatActivity {
                         MyModel.getInstance().setIdsession(risp);
                         Log.d("Login", MyModel.getInstance().getIdsession());
 
-                        if(risp != "That didn't work!") {
+                        if(risp != "") {
                             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
                             startActivity(intent);
+                        }else{
+                            Log.d("Login ", "user o password errati");
+                            //alert user o password errati
                         }
                     }
                 }, new Response.ErrorListener() {
