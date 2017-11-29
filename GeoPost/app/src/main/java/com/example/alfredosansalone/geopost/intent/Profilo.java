@@ -52,6 +52,8 @@ public class Profilo extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.d("Logout", "response is " + response);
                         Log.d("Logout", "Logout");
+                        Intent intent = new Intent(Profilo.this, Login.class);
+                        startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
 
@@ -62,8 +64,5 @@ public class Profilo extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
-        Log.d("Sono nella MainActivity", "myTap");
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
     }
 }

@@ -63,8 +63,10 @@ public class Login extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.d("Login", "Response is: "+ response);
                         Log.d("Login ", "risp = "+ risp);
+
                         MyModel.getInstance().setIdsession(risp);
                         Log.d("Login", MyModel.getInstance().getIdsession());
+
                         if(risp != "That didn't work!") {
                             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
                             startActivity(intent);

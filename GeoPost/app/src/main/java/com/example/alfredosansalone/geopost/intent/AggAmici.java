@@ -70,6 +70,10 @@ public class AggAmici extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.d("Follow", "response is " + response);
+
+                        Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
+                        startActivity(intent);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -81,8 +85,6 @@ public class AggAmici extends AppCompatActivity {
 
         queue.add(stringRequest);
 
-        Log.d("Sono nella MainActivity", "myTap");
-        Intent intent = new Intent(this, AmiciSeguiti.class);
-        startActivity(intent);
+
     }
 }
