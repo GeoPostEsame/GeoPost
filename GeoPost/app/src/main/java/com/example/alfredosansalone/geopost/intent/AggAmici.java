@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,34 +20,27 @@ import com.example.alfredosansalone.geopost.R;
 
 public class AggAmici extends AppCompatActivity {
 
-    EditText username;
+    AutoCompleteTextView username;
     String user;
     String risp;
     String url;
     String idsession;
     RequestQueue queue;
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agg_amici);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public void Aggiungi(View v) {
-        Log.d("Sono nella MainActivity", "myTap");
-        Intent intent = new Intent(this, AmiciSeguiti.class);
-        startActivity(intent);
-    }*/
+    private static final String[] COUNTRIES = new String[] {
+            "Belgium", "France", "Italy", "Germany", "Spain", "Islands"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agg_amici);
-        username = (EditText)findViewById(R.id.autoCompleteTextView);
+        username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, COUNTRIES);
+        username.setAdapter(adapter);
 
         queue = Volley.newRequestQueue(this);
     }
@@ -70,6 +65,7 @@ public class AggAmici extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.d("Follow", "response is " + response);
+
 
                         Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
                         startActivity(intent);
