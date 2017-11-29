@@ -25,7 +25,6 @@ public class Login extends AppCompatActivity {
     String user;
     String passw;
     String risp;
-    MyModel myModel;
     String url;
     RequestQueue queue;
 
@@ -64,6 +63,12 @@ public class Login extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.d("Login", "Response is: "+ response);
                         Log.d("Login ", "risp = "+ risp);
+                        MyModel.getInstance().setIdsession(risp);
+                        Log.d("Login", MyModel.getInstance().getIdsession());
+                        if(risp != "That didn't work!") {
+                            Intent intent = new Intent(Login.this, AmiciSeguiti.class);
+                            startActivity(intent);
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -75,13 +80,6 @@ public class Login extends AppCompatActivity {
 
         queue.add(loginRequest);
 
-        myModel.getInstance().setIdsession(risp);
-
-        Log.d("Sono nella MainActivity", "myTap");
-        if(risp != "That didn't work!") {
-            Intent intent = new Intent(this, AmiciSeguiti.class);
-            startActivity(intent);
-        }
 
     }
 
