@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                         Log.d("Login ", "risp = "+ risp);
 
                         MyModel.getInstance().setIdsession(risp);
-                        Log.d("Login", MyModel.getInstance().getIdsession());
+                        Log.d("Login ass myModel", MyModel.getInstance().getIdsession());
 
                         if(risp != "") {
                             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
