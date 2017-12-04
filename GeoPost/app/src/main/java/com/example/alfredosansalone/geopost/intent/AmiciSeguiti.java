@@ -13,6 +13,7 @@ import com.example.alfredosansalone.geopost.fragment.ListFragment;
 import com.example.alfredosansalone.geopost.fragment.MapFragment;
 
 public class AmiciSeguiti extends AppCompatActivity {
+    String idsession;
 
     //PULSANTE GESTIONE VISTA
     public void Vista(View v){
@@ -42,6 +43,12 @@ public class AmiciSeguiti extends AppCompatActivity {
         transaction.replace(R.id.content, new MapFragment());
         transaction.commit();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        idsession = MyModel.getInstance().getIdsession();
     }
 
     // PULSANTE MENU A SCOMPARSA
