@@ -1,6 +1,8 @@
 package com.example.alfredosansalone.geopost.intent;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,8 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -113,17 +115,68 @@ public class AggAmici extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.d("Follow", "response is " + response);
-
+                        Toast.makeText(getApplicationContext(), "Utente seguito", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
                         startActivity(intent);
-
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Follow", "response is " + error);
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d("Follow", "on error response is " + volleyError);
+                        if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
+                            VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
+                            volleyError = error;
+                            Log.d("Follow", "volleyError is " + volleyError);
+                            String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
+                            Log.d("Follow", "stringa di errore " + errore);
+
+                            if(errore.equals("ALREADY FOLLOWING USER")){
+                                //alert
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AggAmici.this);
+                                builder.setMessage("Utente gia seguito").setTitle("Follow Error");
+
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        username.setText("");
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+
+                            if(errore.equals("CANNOT FOLLOW YOURSELF")){
+                                //alert
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AggAmici.this);
+                                builder.setMessage("Non puoi seguire te stesso").setTitle("Follow Error");
+
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        username.setText("");
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+
+                            if(errore.equals("USERNAME NOT FOUND")){
+                                //alert
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AggAmici.this);
+                                builder.setMessage("Utente non trovato").setTitle("Follow Error");
+
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        username.setText("");
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
                     }
                 });
 
