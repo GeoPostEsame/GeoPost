@@ -1,6 +1,8 @@
 package com.example.alfredosansalone.geopost.intent;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,15 +37,8 @@ public class Login extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
 
-
-
-
         queue = Volley.newRequestQueue(this);
         url ="https://ewserver.di.unimi.it/mobicomp/geopost/login";
-
-        //queue.add(LoginRequest);
-
-        // Add the request to the RequestQueue.
 
     }
 
@@ -67,19 +62,31 @@ public class Login extends AppCompatActivity {
                         MyModel.getInstance().setIdsession(risp);
                         Log.d("Login ass myModel", MyModel.getInstance().getIdsession());
 
-                        if(risp != "") {
                             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
                             startActivity(intent);
-                        }else{
-                            Log.d("Login ", "user o password errati");
-                            //alert user o password errati
-                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                risp = "That didn't work!";
-                Log.d("Login", "That didn't work!");
+                risp = "Nomeutente o Password errate";
+                Log.d("Login", risp);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                builder.setMessage(risp).setTitle("Login Error");
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        password.setText("");
+
+                        // User clicked OK button
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
