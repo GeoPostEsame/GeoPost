@@ -112,8 +112,8 @@ public class AggAmici extends AppCompatActivity {
                 new Response.Listener<String>() {
 
                     @Override
+                    //Toast fa uscire piccola text momentanea per feedback
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
                         Log.d("Follow", "response is " + response);
                         Toast.makeText(getApplicationContext(), "Utente seguito", Toast.LENGTH_LONG).show();
 
@@ -124,6 +124,7 @@ public class AggAmici extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        //Gestione errori Follow
                         Log.d("Follow", "on error response is " + volleyError);
                         if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
                             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));

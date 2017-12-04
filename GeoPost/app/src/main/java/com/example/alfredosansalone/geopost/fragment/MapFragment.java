@@ -45,6 +45,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onViewCreated(View view, Bundle saveInstanceState) {
+        //Creazione della view mappa
         super.onViewCreated(view, saveInstanceState);
 
         mMView = mView.findViewById(R.id.map);
@@ -57,6 +58,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap gmap) {
+        //Avviso di mappa quando è caricata
         Log.d("MainActivity", "Map ready");
         mGMap = gmap;
         gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

@@ -55,7 +55,6 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         risp = response;
-                        // Display the first 500 characters of the response string.
                         Log.d("Login", "Response is: "+ response);
                         Log.d("Login ", "risp = "+ risp);
 
@@ -72,6 +71,7 @@ public class Login extends AppCompatActivity {
                 risp = "Nomeutente o Password errate";
                 Log.d("Login", risp);
 
+                //Alert per la creazione di messagio per errore di accesso
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                 builder.setMessage(risp).setTitle("Login Error");
 
@@ -79,8 +79,6 @@ public class Login extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         password.setText("");
-
-                        // User clicked OK button
                     }
                 });
 
