@@ -3,6 +3,8 @@ package com.example.alfredosansalone.geopost.intent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,13 +25,11 @@ public class AggAmici extends AppCompatActivity {
     AutoCompleteTextView username;
     String user;
     String risp;
-    String url;
     String idsession;
     RequestQueue queue;
+    //private static String[] USER;
+    ArrayAdapter<String> adapter;
 
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain", "Islands"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +39,59 @@ public class AggAmici extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, COUNTRIES);
-        username.setAdapter(adapter);
-
         queue = Volley.newRequestQueue(this);
+        /* USER = new String[]{""};
+        adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
+        username.setAdapter(adapter);*/
+
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                user = username.getText().toString();
+                Log.d("user", user);
+
+                String url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession+"&usernamestart="+user+"&limit=7";
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                Log.d("user", "response is " + response);
+                                String s = response;
+                                s=s.substring(14,s.length()-2);
+                                Log.d("substring", s);
+                                s= s.replace("\"", "");
+                                final String[] USER = s.split(",");
+                                Log.d("substring", USER.toString());
+                                adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
+                                username.setAdapter(adapter);
+                                //adapter.notifyDataSetChanged();
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("user", "That didn't work!");
+                    }
+                });
+
+                queue.add(stringRequest);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
     }
+
 
     @Override
     protected void onStart() {

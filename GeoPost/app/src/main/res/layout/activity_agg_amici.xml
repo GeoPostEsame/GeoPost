@@ -10,7 +10,7 @@
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView"
         android:layout_width="211dp"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:completionThreshold="1"
         android:hint="Cerca"
         app:layout_constraintTop_toTopOf="parent"
