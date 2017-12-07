@@ -54,34 +54,32 @@ public class AggAmici extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 user = username.getText().toString();
                 Log.d("user", user);
+                    String url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession + "&usernamestart=" + user + "&limit=7";
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
 
-                String url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession+"&usernamestart="+user+"&limit=7";
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.d("user", "response is " + response);
+                                    String s = response;
+                                    s = s.substring(14, s.length() - 2);
+                                    Log.d("substring", s);
+                                    s = s.replace("\"", "");
+                                    final String[] USER = s.split(",");
+                                    Log.d("substring", USER.toString());
+                                    adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
+                                    username.setAdapter(adapter);
+                                    //adapter.notifyDataSetChanged();
+                                }
+                            }, new Response.ErrorListener() {
 
-                            @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                Log.d("user", "response is " + response);
-                                String s = response;
-                                s=s.substring(14,s.length()-2);
-                                Log.d("substring", s);
-                                s= s.replace("\"", "");
-                                final String[] USER = s.split(",");
-                                Log.d("substring", USER.toString());
-                                adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
-                                username.setAdapter(adapter);
-                                //adapter.notifyDataSetChanged();
-                            }
-                        }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("user", "That didn't work!");
+                        }
+                    });
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("user", "That didn't work!");
-                    }
-                });
-
-                queue.add(stringRequest);
+                    queue.add(stringRequest);
             }
 
             @Override
@@ -93,7 +91,6 @@ public class AggAmici extends AppCompatActivity {
 
 
     }
-
 
     @Override
     protected void onStart() {
@@ -116,9 +113,10 @@ public class AggAmici extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d("Follow", "response is " + response);
                         Toast.makeText(getApplicationContext(), "Utente seguito", Toast.LENGTH_LONG).show();
+                        username.setText("");
 
-                        Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
+                        //startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
 
