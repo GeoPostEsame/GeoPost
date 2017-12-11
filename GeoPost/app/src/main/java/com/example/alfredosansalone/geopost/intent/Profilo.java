@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,12 +17,27 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Profilo extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
 
     MyModel myModel;
     String idsession;
     RequestQueue queue;
+    TextView username;
+    TextView messaggio;
+    double latitudine;
+    double longitudine;
+    LatLng myPosition;
+    GoogleMap mMap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +46,19 @@ public class Profilo extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        username = (TextView)findViewById(R.id.nomeutente);
+        messaggio = (TextView)findViewById(R.id.messaggio);
+
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(Profilo.this);
+
+
+
+
+
         queue = Volley.newRequestQueue(this);
+
 
 
     }
@@ -41,6 +69,53 @@ public class Profilo extends AppCompatActivity {
         idsession = myModel.getInstance().getIdsession();
     }
 
+    @Override
+    public void onMapReady(GoogleMap map){
+        Log.d("Location", "Map is ready!");
+        mMap = map;
+
+        String url = "https://ewserver.di.unimi.it/mobicomp/geopost/profile?session_id=" + idsession;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Profilo", "response is " + response);
+
+                        try {
+                            JSONObject risp = new JSONObject(response);
+                            Log.d("Profilo", risp.toString());
+
+                            Log.d("Profilo", "username: "+risp.get("username").toString());
+                            String user = risp.get("username").toString();
+                            username.setText(user);
+                            Log.d("Profilo", "messaggio: "+risp.get("msg").toString());
+                            messaggio.setText(risp.get("msg").toString());
+                            Log.d("Profilo", "lat: "+risp.get("lat").toString());
+                            latitudine = Double.parseDouble(risp.get("lat").toString());
+                            Log.d("Profilo", "lon: "+risp.get("lon").toString());
+                            longitudine = Double.parseDouble(risp.get("lon").toString());
+
+                            myPosition = new LatLng(latitudine, longitudine);
+                            mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Logout", "That didn't work!");
+            }
+        });
+        queue.add(stringRequest);
+
+    }
+
     public void Logout(View v) {
 
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/logout?session_id=" + idsession;
@@ -49,7 +124,7 @@ public class Profilo extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
+
                         Log.d("Logout", "response is " + response);
                         Log.d("Logout", "Logout");
                         Intent intent = new Intent(Profilo.this, Login.class);
