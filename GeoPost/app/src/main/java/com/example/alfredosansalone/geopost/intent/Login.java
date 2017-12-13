@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity {
     String risp;
     String url;
     RequestQueue queue;
+    String idsession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,17 @@ public class Login extends AppCompatActivity {
         url ="https://ewserver.di.unimi.it/mobicomp/geopost/login";
 
     }
+
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        idsession = MyModel.getInstance().getIdsession();
+        Log.d("Login", "session id "+idsession);
+        if(idsession!=null){
+            Intent intent = new Intent(Login.this, AmiciSeguiti.class);
+            startActivity(intent);
+        }
+    }*/
 
 
     public void Login(View v){

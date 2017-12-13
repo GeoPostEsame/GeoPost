@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -116,7 +117,44 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public void Logout(View v) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                String url = "https://ewserver.di.unimi.it/mobicomp/geopost/logout?session_id=" + idsession;
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+
+                            @Override
+                            public void onResponse(String response) {
+
+                                Log.d("Logout", "response is " + response);
+                                Log.d("Logout", "Logout");
+                                Intent intent = new Intent(Profilo.this, Login.class);
+                                startActivity(intent);
+                                //MyModel.getInstance().setIdsession(null);
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Logout", "That didn't work!");
+                    }
+                });
+                queue.add(stringRequest);
+                return true;
+        }
+        return false;
+    }
+
+    /*public void Logout(View v) {
 
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/logout?session_id=" + idsession;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -129,6 +167,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                         Log.d("Logout", "Logout");
                         Intent intent = new Intent(Profilo.this, Login.class);
                         startActivity(intent);
+                        //MyModel.getInstance().setIdsession(null);
                     }
                 }, new Response.ErrorListener() {
 
@@ -139,5 +178,5 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
         });
         queue.add(stringRequest);
 
-    }
+    }*/
 }
