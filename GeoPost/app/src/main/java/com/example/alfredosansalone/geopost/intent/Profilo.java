@@ -39,6 +39,8 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
     LatLng myPosition;
     GoogleMap mMap = null;
 
+    //PROBLEMA, QUANDO NON CI SONO DATI APP CRASH, PROVATO CON SERGIO SERGIO
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
