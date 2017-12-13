@@ -17,9 +17,9 @@
         android:layout_marginEnd="11dp"
         android:layout_marginLeft="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="33dp"
+        android:layout_marginRight="32dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintHorizontal_bias="0.5"
         android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/messaggio"
         android:layout_marginStart="32dp" />
@@ -36,7 +36,7 @@
         android:ems="10"
         android:hint="Messaggio"
         android:inputType="textMultiLine"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
