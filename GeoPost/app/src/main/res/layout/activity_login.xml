@@ -13,13 +13,13 @@
         android:hint="Username"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/password"
@@ -27,13 +27,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:hint="Password"
         app:layout_constraintTop_toBottomOf="@+id/username"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503" />
 
 
     <ImageButton
@@ -51,8 +52,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="32dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.522" />
+        app:layout_constraintHorizontal_bias="0.518" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logo"
+        android:background="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
