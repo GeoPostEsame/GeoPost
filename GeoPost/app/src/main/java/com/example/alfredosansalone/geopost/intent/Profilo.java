@@ -91,18 +91,30 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                             Log.d("Profilo", risp.toString());
 
                             Log.d("Profilo", "username: "+risp.get("username").toString());
+
                             String user = risp.get("username").toString();
                             username.setText(user);
-                            Log.d("Profilo", "messaggio: "+risp.get("msg").toString());
-                            messaggio.setText(risp.get("msg").toString());
-                            Log.d("Profilo", "lat: "+risp.get("lat").toString());
-                            latitudine = Double.parseDouble(risp.get("lat").toString());
-                            Log.d("Profilo", "lon: "+risp.get("lon").toString());
-                            longitudine = Double.parseDouble(risp.get("lon").toString());
 
-                            myPosition = new LatLng(latitudine, longitudine);
-                            mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
+                            Log.d("Profilo", "messaggio: "+risp.get("msg").toString());
+                            String msg = risp.get("msg").toString();
+                            if(!(msg.equals("null"))) {
+                                messaggio.setText(msg);
+                            }else{
+                                messaggio.setText("Non hai ancora pubblicato uno stato e non viene visualizzata la posizione");
+                            }
+                            String lati = risp.get("lat").toString();
+                            if(lati.equals("null")) {
+
+                            }else{
+                                Log.d("Profilo", "lat: " + risp.get("lat").toString());
+                                latitudine = Double.parseDouble(lati);
+                                Log.d("Profilo", "lon: " + risp.get("lon").toString());
+                                longitudine = Double.parseDouble(risp.get("lon").toString());
+
+                                myPosition = new LatLng(latitudine, longitudine);
+                                mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
