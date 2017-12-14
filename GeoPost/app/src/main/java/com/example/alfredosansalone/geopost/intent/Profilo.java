@@ -104,7 +104,13 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 Log.d("Profilo", "lon: " + risp.get("lon").toString());
                                 longitudine = Double.parseDouble(risp.get("lon").toString());
 
+                                //AGGIUNTO GET E SET POSITION IN MYMODEL
                                 myPosition = new LatLng(latitudine, longitudine);
+                                MyModel.getInstance().setLatidMe(latitudine);
+                                MyModel.getInstance().setLongiMe(longitudine);
+                                Log.d("Profilo lat ass myModel", MyModel.getInstance().getLatidMe() + "");
+                                Log.d("Profilo lon ass myModel", MyModel.getInstance().getLongiMe() + "");
+
                                 mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
                             }

@@ -28,7 +28,8 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;  if (v == null) {
+        View v = convertView;
+        if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.list_element, null);
@@ -39,7 +40,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
             TextView tt2 = (TextView) v.findViewById(R.id.distanza);
             TextView tt3 = (TextView) v.findViewById(R.id.messaggio);
             tt1.setText(p.getUser());
-            float distanza = p.getDistanza(p.getLatitudine(), p.getLongitudine());
+            double distanza = p.getDistanza(p.getLatitudine(), p.getLongitudine());
             String s = distanza+"";
             tt2.setText(s);
             tt3.setText(p.getMessaggio());

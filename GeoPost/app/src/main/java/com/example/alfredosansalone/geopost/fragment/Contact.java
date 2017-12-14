@@ -4,12 +4,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
+import com.example.alfredosansalone.geopost.intent.MyModel;
 
 /**
  * Created by alfredosansalone on 13/12/17.
  */
 
 class Contact implements LocationListener {
+    MyModel myModel;
     private String user = null;
     private String messaggio = null;
     private String latitudine = null;
@@ -63,8 +65,11 @@ class Contact implements LocationListener {
 
     }
 
-    public float getDistanza(double lat, double lon){
-        float distanza = 0f;
+
+    public double getDistanza(double lat, double lon){
+        double x1 = myModel.getInstance().getLatidMe();
+        double y1 = myModel.getInstance().getLongiMe();
+        double distanza = (((lat-x1)*(lat-x1))+((lon-y1)*(lon-y1)));
         return distanza;
     }
 }

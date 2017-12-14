@@ -4,12 +4,14 @@ package com.example.alfredosansalone.geopost.intent;
  * Created by alfredosansalone on 27/11/17.
  */
 
-class MyModel {
+public class MyModel {
     private static final MyModel ourInstance = new MyModel();
 
     private String idsession;
+    private double latid;
+    private double longi;
 
-    static MyModel getInstance() {
+    public static MyModel getInstance() {
         return ourInstance;
     }
 
@@ -21,8 +23,16 @@ class MyModel {
         idsession = value;
     }
 
+    public void setLatidMe(double lat) { latid = lat; }
+
+    public void setLongiMe(double lon) { longi = lon; }
+
     public String getIdsession(){
         return idsession;
     }
+
+    public double getLatidMe() { return latid;}
+
+    public double getLongiMe() { return longi;}
 
 }
