@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
             startActivity(intent);
         }
-    }*/
+    }
 
 
     public void Login(View v){

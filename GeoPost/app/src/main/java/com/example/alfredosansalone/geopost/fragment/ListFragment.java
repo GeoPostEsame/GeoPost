@@ -18,10 +18,17 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
+
         ListView userList = (ListView) rootView.findViewById(R.id.list);
-        String[] users = {"Anna", "Beatrice", "Carmine"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);
-        userList.setAdapter(adapter);
+        //String[] users = {"Anna", "Beatrice", "Carmine"};
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users);
+        //userList.setAdapter(adapter);
+
+        ListofContacts contacts = new ListofContacts();
+
+        ContactsAdapter myAdapter = new ContactsAdapter(getActivity(), android.R.layout.simple_list_item_1, contacts);
+
+        userList.setAdapter(myAdapter);
 
         return rootView;
     }

@@ -40,7 +40,6 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
     LatLng myPosition;
     GoogleMap mMap = null;
 
-    //PROBLEMA, QUANDO NON CI SONO DATI APP CRASH, PROVATO CON SERGIO SERGIO
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +55,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(Profilo.this);
 
-
-
-
-
         queue = Volley.newRequestQueue(this);
-
-
 
     }
 
@@ -153,7 +146,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 Log.d("Logout", "Logout");
                                 Intent intent = new Intent(Profilo.this, Login.class);
                                 startActivity(intent);
-                                //MyModel.getInstance().setIdsession(null);
+                                MyModel.getInstance().setIdsession(null);
                             }
                         }, new Response.ErrorListener() {
 
