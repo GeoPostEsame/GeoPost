@@ -240,6 +240,8 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
     public void onLocationChanged(Location location) {
         Log.d("Location", "Location update received: " + location.toString());
 
+        mMap.clear();
+
         latitudine = location.getLatitude();
         longitudine = location.getLongitude();
         myPosition = new LatLng(latitudine, longitudine);
