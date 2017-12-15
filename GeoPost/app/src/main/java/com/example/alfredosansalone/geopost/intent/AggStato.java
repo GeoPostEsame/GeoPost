@@ -91,7 +91,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         mMap = map;
     }
 
-
+    //AGGIUNGERE MAP.CLEAR() PER PULIZIA MARKER IN PIU
     @Override
     protected void onStart() {
         super.onStart();
