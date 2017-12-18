@@ -105,7 +105,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
 
-        String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + idsession;
+        /* String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + idsession;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
 
@@ -117,6 +117,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
                         try {
                             JSONObject risp = new JSONObject(response);
                             Log.d("Amiciseguiti", risp.toString());
+
 
 
 
@@ -139,7 +140,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
                 }
             }
         });
-        queue.add(stringRequest);
+        queue.add(stringRequest); */
 
         // posizione esercizio prof
         //Check if GooglePlayServices are available

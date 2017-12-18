@@ -14,7 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
+import com.example.alfredosansalone.geopost.intent.AmiciSeguiti;
+import com.example.alfredosansalone.geopost.intent.MyModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -23,6 +31,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Map;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -30,10 +42,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap mGMap;
     MapView mMView;
     View mView;
+    JSONObject risp;
+    String idsession;
+    RequestQueue queue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
     }
 
@@ -62,6 +79,73 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Log.d("MainActivity", "Map ready");
         mGMap = gmap;
         gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + idsession;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Amiciseguiti", "response is " + response);
+
+                        try {
+                            risp = new JSONObject(response);
+                            Log.d("Amiciseguiti", risp.toString());
+
+                            JSONArray array = risp.getJSONArray("followed");
+                            for(int i = 0; i<array.length(); i++) {
+                                JSONObject followed = array.getJSONObject(i);
+                                if (followed.get("lat").toString() != "null") {
+                                    LatLng position = new LatLng(Double.parseDouble(followed.get("lat").toString()), Double.parseDouble(followed.get("lon").toString()));
+                                    mGMap.addMarker(new MarkerOptions().position(position).title(followed.get("username").toString()).snippet(followed.get("msg").toString()));
+                                    //mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                //Gestione errori
+                Log.d("Amiciseguiti", "on error response is " + volleyError);
+                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
+                    volleyError = error;
+                    Log.d("Amiciseguiti", "volleyError is " + volleyError);
+                    String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
+                    Log.d("Amiciseguiti", "stringa di errore " + errore);
+                }
+            }
+        });
+        queue.add(stringRequest);
+
+        /*try {
+            JSONArray array = risp.getJSONArray("followed");
+            for(int i = 0; i<array.length(); i++){
+                JSONObject followed = array.getJSONObject(i);
+                if(followed.get("lat").toString() != "null") {
+                    LatLng position = new LatLng(Double.parseDouble(followed.get("lat").toString()), Double.parseDouble(followed.get("lon").toString()));
+                    mGMap.addMarker(new MarkerOptions().position(position).title(followed.get("username").toString()).snippet(followed.get("msg").toString()));
+                    //mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        idsession = MyModel.getInstance().getIdsession();
+
+
+
+    }
 }
