@@ -29,6 +29,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -45,6 +46,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     JSONObject risp;
     String idsession;
     RequestQueue queue;
+
+    //valori per il la visualizzazione dei marker nella mappa
+    double maxLat = 0d;
+    double maxLon = 0d;
+    double minLat = 0d;
+    double minLon = 0d;
+    double lat = 0d;
+    double lon = 0d;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,12 +106,32 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             for(int i = 0; i<array.length(); i++) {
                                 JSONObject followed = array.getJSONObject(i);
                                 if (followed.get("lat").toString() != "null") {
-                                    LatLng position = new LatLng(Double.parseDouble(followed.get("lat").toString()), Double.parseDouble(followed.get("lon").toString()));
+                                    lat = Double.parseDouble(followed.get("lat").toString());
+                                    lon = Double.parseDouble(followed.get("lon").toString());
+                                    LatLng position = new LatLng(lat, lon);
                                     mGMap.addMarker(new MarkerOptions().position(position).title(followed.get("username").toString()).snippet(followed.get("msg").toString()));
+
+                                    if(minLat == 0 | lat < minLat){
+                                        minLat = lat;
+                                    }
+                                    if(maxLat == 0 | lat > maxLat){
+                                        maxLat = lat;
+                                    }
+                                    if(minLon == 0 | lon < minLon){
+                                        minLon = lon;
+                                    }
+                                    if(maxLon == 0 | lon > maxLon){
+                                        maxLon = lon;
+                                    }
+
                                     //mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
                                 }
 
                             }
+
+                            LatLngBounds bounds = new LatLngBounds(new LatLng(minLat, minLon), new LatLng(maxLat, maxLon));
+                            mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 9));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
