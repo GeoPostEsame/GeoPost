@@ -129,8 +129,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                             }
 
-                            LatLngBounds bounds = new LatLngBounds(new LatLng(minLat, minLon), new LatLng(maxLat, maxLon));
-                            mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 9));
+                            LatLngBounds bounds = new LatLngBounds(new LatLng(minLat-0.1, minLon-0.1), new LatLng(maxLat+0.1, maxLon+0.1));
+                            mGMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
