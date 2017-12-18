@@ -124,7 +124,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         maxLon = lon;
                                     }
 
-                                    //mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
                                 }
 
                             }
@@ -153,28 +152,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
         queue.add(stringRequest);
 
-        /*try {
-            JSONArray array = risp.getJSONArray("followed");
-            for(int i = 0; i<array.length(); i++){
-                JSONObject followed = array.getJSONObject(i);
-                if(followed.get("lat").toString() != "null") {
-                    LatLng position = new LatLng(Double.parseDouble(followed.get("lat").toString()), Double.parseDouble(followed.get("lon").toString()));
-                    mGMap.addMarker(new MarkerOptions().position(position).title(followed.get("username").toString()).snippet(followed.get("msg").toString()));
-                    //mGMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
-                }
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override
     public void onStart() {
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
-
-
-
     }
 }
