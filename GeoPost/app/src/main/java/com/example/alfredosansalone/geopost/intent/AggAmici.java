@@ -48,12 +48,9 @@ public class AggAmici extends AppCompatActivity {
 
         listdata = new ArrayList<>();
         username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
-        //adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
+        adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
         //username.setAdapter(adapter);
 
-        /* USER = new String[]{""};
-        adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
-        username.setAdapter(adapter);*/
 
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,18 +76,19 @@ public class AggAmici extends AppCompatActivity {
                             public void onResponse(String response) {
                                 Log.d("GeoPost User", "response is " + response);
                                 try {
-                                    listdata.clear();
+
                                     JSONObject risp = new JSONObject(response);
                                     results = risp.getJSONArray("usernames");
                                     Log.d("GeoPost User", "results: " + results);
                                     if(results != null){
+                                        listdata.clear();
                                         for(int i = 0; i < results.length(); i++){
                                             String s = results.get(i).toString();
                                             Log.d("GeoPost User", "s= " + s);
                                             listdata.add(s);
                                         }
                                     }
-                                    adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
+                                    //adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
                                     username.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();

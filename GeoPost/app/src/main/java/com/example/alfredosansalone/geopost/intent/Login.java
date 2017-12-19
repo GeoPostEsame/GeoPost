@@ -60,7 +60,7 @@ public class Login extends AppCompatActivity {
         Log.d("GeoPost Login", "sharedPref = "+ idSharedPref);
         if(idSharedPref != null){
             MyModel.getInstance().setIdsession(idSharedPref);
-            Log.d("GeoPost Login", "session id setted with sharedPref"+idsession);
+            Log.d("GeoPost Login", "session id setted with sharedPref = " + MyModel.getInstance().getIdsession());
             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
             startActivity(intent);
         }
@@ -100,6 +100,7 @@ public class Login extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.d("GeoPost Login", error.toString());
                 risp = "Nomeutente o Password errate";
                 Log.d("GeoPost Login", risp);
 
