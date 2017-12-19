@@ -64,23 +64,23 @@ public class ListFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("ListFragment", "response is " + response);
+                        Log.d("GeoPost ListFragment", "response is " + response);
 
                         try {
                             risp = new JSONObject(response);
-                            Log.d("ListFragment", risp.toString());
+                            Log.d("GeoPost ListFragment", risp.toString());
 
                             JSONArray array = risp.getJSONArray("followed");
                             for(int i = 0; i<array.length(); i++) {
                                 JSONObject followed = array.getJSONObject(i);
                                 if (followed.get("lat").toString() != "null") {
                                     user = followed.get("username").toString();
-                                    Log.d("ListFragment", user);
+                                    Log.d("GeoPost ListFragment", user);
                                     msg = followed.get("msg").toString();
                                     lat = Double.parseDouble(followed.get("lat").toString());
                                     lon = Double.parseDouble(followed.get("lon").toString());
                                     contacts.add(new Contact(user, msg, lat+"", lon+""));
-                                    Log.d("ListFragment", "contacts "+contacts.toString());
+                                    Log.d("GeoPost ListFragment", "contacts "+contacts.toString());
 
                                 }
 
@@ -98,13 +98,13 @@ public class ListFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 //Gestione errori
-                Log.d("ListFragment", "on error response is " + volleyError);
+                Log.d("GeoPost ListFragment", "on error response is " + volleyError);
                 if(volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
                     VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
                     volleyError = error;
-                    Log.d("ListFragment", "volleyError is " + volleyError);
+                    Log.d("GeoPost ListFragment", "volleyError is " + volleyError);
                     String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
-                    Log.d("ListFragment", "stringa di errore " + errore);
+                    Log.d("GeoPost ListFragment", "stringa di errore " + errore);
                 }
             }
         });
@@ -114,7 +114,7 @@ public class ListFragment extends Fragment {
         //userList.setAdapter(adapter);
 
 
-        Log.d("ListFragment", "contacts "+contacts.toString());
+        Log.d("GeoPost ListFragment", "contacts "+contacts.toString());
         //ContactsAdapter myAdapter = new ContactsAdapter(getActivity(), android.R.layout.simple_list_item_1, contacts);
 
         //userList.setAdapter(myAdapter);

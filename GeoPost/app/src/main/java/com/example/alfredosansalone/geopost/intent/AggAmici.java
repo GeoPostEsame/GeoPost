@@ -22,26 +22,35 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class AggAmici extends AppCompatActivity {
 
     AutoCompleteTextView username;
     String user;
-    String risp;
     String idsession;
     RequestQueue queue;
-    //private static String[] USER;
     ArrayAdapter<String> adapter;
+    JSONArray results;
+    ArrayList<String> listdata;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agg_amici);
-        username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        queue = Volley.newRequestQueue(this);
+        listdata = new ArrayList<>();
+        username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
+        //adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
+        //username.setAdapter(adapter);
+
         /* USER = new String[]{""};
         adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
         username.setAdapter(adapter);*/
@@ -52,34 +61,52 @@ public class AggAmici extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                user = username.getText().toString();
-                Log.d("user", user);
-                    String url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession + "&usernamestart=" + user + "&limit=7";
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                            new Response.Listener<String>() {
+                user = s.toString();
+                String url;
+                queue = Volley.newRequestQueue(AggAmici.this);
+                Log.d("GeoPost User", user);
+                if(user.equals("")) {
+                    url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession;
+                    Log.d("GeoPost User", "user nullo: "+url);
+                }else{
+                    url = "https://ewserver.di.unimi.it/mobicomp/geopost/users?session_id=" + idsession + "&usernamestart=" + user + "&limit=7";
+                    Log.d("GeoPost User", url);
+                }
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
 
-                                @Override
-                                public void onResponse(String response) {
-                                    Log.d("user", "response is " + response);
-                                    String s = response;
-                                    s = s.substring(14, s.length() - 2);
-                                    Log.d("substring", s);
-                                    s = s.replace("\"", "");
-                                    final String[] USER = s.split(",");
-                                    Log.d("substring", USER.toString());
-                                    adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, USER);
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("GeoPost User", "response is " + response);
+                                try {
+                                    listdata.clear();
+                                    JSONObject risp = new JSONObject(response);
+                                    results = risp.getJSONArray("usernames");
+                                    Log.d("GeoPost User", "results: " + results);
+                                    if(results != null){
+                                        for(int i = 0; i < results.length(); i++){
+                                            String s = results.get(i).toString();
+                                            Log.d("GeoPost User", "s= " + s);
+                                            listdata.add(s);
+                                        }
+                                    }
+                                    adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
                                     username.setAdapter(adapter);
-                                    //adapter.notifyDataSetChanged();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            }, new Response.ErrorListener() {
+                                adapter.notifyDataSetChanged();
 
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("user", "That didn't work!");
-                        }
-                    });
+                            }
+                        }, new Response.ErrorListener() {
 
-                    queue.add(stringRequest);
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("GeoPost user", "That didn't work!");
+                    }
+                });
+
+                queue.add(stringRequest);
             }
 
             @Override
@@ -101,8 +128,8 @@ public class AggAmici extends AppCompatActivity {
     public void Follow(View v) {
 
         user = username.getText().toString();
-        Log.d("Follow", "Id session = "+ idsession);
-        Log.d("Follow", "User = "+ user);
+        Log.d("GeoPost Follow", "Id session = "+ idsession);
+        Log.d("GeoPost Follow", "User = "+ user);
 
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/follow?session_id=" + idsession + "&username=" + user;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -111,7 +138,7 @@ public class AggAmici extends AppCompatActivity {
                     @Override
                     //Toast fa uscire piccola text momentanea per feedback
                     public void onResponse(String response) {
-                        Log.d("Follow", "response is " + response);
+                        Log.d("GeoPost Follow", "response is " + response);
                         Toast.makeText(getApplicationContext(), "Utente seguito", Toast.LENGTH_LONG).show();
                         username.setText("");
 
@@ -123,13 +150,13 @@ public class AggAmici extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //Gestione errori Follow
-                        Log.d("Follow", "on error response is " + volleyError);
+                        Log.d("GeoPost Follow", "on error response is " + volleyError);
                         if(volleyError.networkResponse != null && volleyError.networkResponse.data != null){
                             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
                             volleyError = error;
-                            Log.d("Follow", "volleyError is " + volleyError);
+                            Log.d("GeoPost Follow", "volleyError is " + volleyError);
                             String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
-                            Log.d("Follow", "stringa di errore " + errore);
+                            Log.d("GeoPost Follow", "stringa di errore " + errore);
 
                             if(errore.equals("ALREADY FOLLOWING USER")){
                                 //alert

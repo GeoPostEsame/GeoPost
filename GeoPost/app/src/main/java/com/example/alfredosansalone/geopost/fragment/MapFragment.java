@@ -85,7 +85,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap gmap) {
         //Avviso di mappa quando è caricata
-        Log.d("MainActivity", "Map ready");
         mGMap = gmap;
         gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -96,11 +95,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("Amiciseguiti", "response is " + response);
+                        Log.d("GeoPost Amiciseguiti", "response is " + response);
 
                         try {
                             risp = new JSONObject(response);
-                            Log.d("Amiciseguiti", risp.toString());
+                            Log.d("GeoPost Amiciseguiti", risp.toString());
 
                             JSONArray array = risp.getJSONArray("followed");
                             for(int i = 0; i<array.length(); i++) {
@@ -140,13 +139,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 //Gestione errori
-                Log.d("Amiciseguiti", "on error response is " + volleyError);
+                Log.d("GeoPost Amiciseguiti", "on error response is " + volleyError);
                 if(volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
                     VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
                     volleyError = error;
-                    Log.d("Amiciseguiti", "volleyError is " + volleyError);
+                    Log.d("GeoPost Amiciseguiti", "volleyError is " + volleyError);
                     String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
-                    Log.d("Amiciseguiti", "stringa di errore " + errore);
+                    Log.d("GeoPost Amiciseguiti", "stringa di errore " + errore);
                 }
             }
         });

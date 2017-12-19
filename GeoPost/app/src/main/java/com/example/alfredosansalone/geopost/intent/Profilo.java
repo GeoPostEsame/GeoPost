@@ -1,6 +1,8 @@
 package com.example.alfredosansalone.geopost.intent;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
     double longitudine;
     LatLng myPosition;
     GoogleMap mMap = null;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -56,6 +59,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(Profilo.this);
 
         queue = Volley.newRequestQueue(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
@@ -67,7 +71,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap map){
-        Log.d("Location", "Map is ready!");
+        Log.d("GeoPost Location", "Map is ready!");
         mMap = map;
 
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/profile?session_id=" + idsession;
@@ -77,18 +81,18 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("Profilo", "response is " + response);
+                        Log.d("GeoPost Profilo", "response is " + response);
 
                         try {
                             JSONObject risp = new JSONObject(response);
-                            Log.d("Profilo", risp.toString());
+                            Log.d("GeoPost Profilo", risp.toString());
 
-                            Log.d("Profilo", "username: "+risp.get("username").toString());
+                            Log.d("GeoPost Profilo", "username: "+risp.get("username").toString());
 
                             String user = risp.get("username").toString();
                             username.setText(user);
 
-                            Log.d("Profilo", "messaggio: "+risp.get("msg").toString());
+                            Log.d("GeoPost Profilo", "messaggio: "+risp.get("msg").toString());
                             String msg = risp.get("msg").toString();
                             if(!(msg.equals("null"))) {
                                 messaggio.setText(msg);
@@ -99,17 +103,17 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                             if(lati.equals("null")) {
 
                             }else{
-                                Log.d("Profilo", "lat: " + risp.get("lat").toString());
+                                Log.d("GeoPost Profilo", "lat: " + risp.get("lat").toString());
                                 latitudine = Double.parseDouble(lati);
-                                Log.d("Profilo", "lon: " + risp.get("lon").toString());
+                                Log.d("GeoPost Profilo", "lon: " + risp.get("lon").toString());
                                 longitudine = Double.parseDouble(risp.get("lon").toString());
 
                                 //AGGIUNTO GET E SET POSITION IN MYMODEL
                                 myPosition = new LatLng(latitudine, longitudine);
                                 MyModel.getInstance().setLatidMe(latitudine);
                                 MyModel.getInstance().setLongiMe(longitudine);
-                                Log.d("Profilo lat ass myModel", MyModel.getInstance().getLatidMe() + "");
-                                Log.d("Profilo lon ass myModel", MyModel.getInstance().getLongiMe() + "");
+                                Log.d("GeoPost Prof latmyModel", MyModel.getInstance().getLatidMe() + "");
+                                Log.d("GeoPost Prof lonmyModel", MyModel.getInstance().getLongiMe() + "");
 
                                 mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
@@ -123,7 +127,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Logout", "That didn't work!");
+                Log.d("GeoPost Logout", "That didn't work!");
             }
         });
         queue.add(stringRequest);
@@ -148,17 +152,21 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                             @Override
                             public void onResponse(String response) {
 
-                                Log.d("Logout", "response is " + response);
-                                Log.d("Logout", "Logout");
+                                Log.d("GeoPost Logout", "response is " + response);
+                                Log.d("GeoPost Logout", "Logout");
                                 Intent intent = new Intent(Profilo.this, Login.class);
                                 startActivity(intent);
                                 MyModel.getInstance().setIdsession(null);
+
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("ID_SESSION", null);
+                                editor.commit();
                             }
                         }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Logout", "That didn't work!");
+                        Log.d("GeoPost Logout", "That didn't work!");
                     }
                 });
                 queue.add(stringRequest);

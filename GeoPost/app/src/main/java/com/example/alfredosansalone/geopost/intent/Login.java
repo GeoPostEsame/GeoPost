@@ -1,7 +1,10 @@
 package com.example.alfredosansalone.geopost.intent;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +30,7 @@ public class Login extends AppCompatActivity {
     String url;
     RequestQueue queue;
     String idsession;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,29 @@ public class Login extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         url ="https://ewserver.di.unimi.it/mobicomp/geopost/login";
 
+        //SharedPreferences per salvare idsession sul dispositivo
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        /*SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("ID_SESSION", null);
+        editor.commit();*/
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
-        Log.d("Login", "session id "+idsession);
+        Log.d("GeoPost Login", "session id "+idsession);
+        String idSharedPref = sharedPref.getString("ID_SESSION", null);
+        Log.d("GeoPost Login", "sharedPref = "+ idSharedPref);
+        if(idSharedPref != null){
+            MyModel.getInstance().setIdsession(idSharedPref);
+            Log.d("GeoPost Login", "session id setted with sharedPref"+idsession);
+            Intent intent = new Intent(Login.this, AmiciSeguiti.class);
+            startActivity(intent);
+        }
+
         if(idsession!=null){
             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
             startActivity(intent);
@@ -56,19 +76,22 @@ public class Login extends AppCompatActivity {
 
         user = username.getText().toString();
         passw = password.getText().toString();
-        Log.d("Login", "User = "+ user);
-        Log.d("Login", "Password = "+ passw);
+        Log.d("GeoPost Login", "User = "+ user);
+        Log.d("GeoPost Login", "Password = "+ passw);
 
         LoginRequest loginRequest= new LoginRequest(user, passw, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         risp = response;
-                        Log.d("Login", "Response is: "+ response);
-                        Log.d("Login ", "risp = "+ risp);
+                        Log.d("GeoPost Login ", "risp = "+ risp);
 
                         MyModel.getInstance().setIdsession(risp);
-                        Log.d("Login ass myModel", MyModel.getInstance().getIdsession());
+                        Log.d("GeoPost Login myModel", MyModel.getInstance().getIdsession());
+
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("ID_SESSION", risp);
+                        editor.commit();
 
                             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
                             startActivity(intent);
@@ -78,7 +101,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 risp = "Nomeutente o Password errate";
-                Log.d("Login", risp);
+                Log.d("GeoPost Login", risp);
 
                 //Alert per la creazione di messagio per errore di accesso
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);

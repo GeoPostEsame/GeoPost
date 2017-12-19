@@ -86,10 +86,10 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         //posizione esercizio prof
         //next line checks if user has granted permission to use fine location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)  {
-            Log.d("Location", "Permission granted");
+            Log.d("GeoPost Location", "Permission granted");
             permissionGranted = true;
         } else {
-            Log.d("Location", "Permission NOT granted");
+            Log.d("GeoPost Location", "Permission NOT granted");
             // we request the permission. When done,
             // the onRequestPermissionsResult method is called
             ActivityCompat.requestPermissions(this,
@@ -147,17 +147,17 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(this);
         if(status == ConnectionResult.SUCCESS) {
-            Log.d("Location", "GooglePlayServices available");
+            Log.d("GeoPost Location", "GooglePlayServices available");
         } else {
-            Log.d("Location", "GooglePlayServices UNAVAILABLE");
+            Log.d("GeoPost Location", "GooglePlayServices UNAVAILABLE");
             if(googleApiAvailability.isUserResolvableError(status)) {
-                Log.d("Location", "Ask the user to fix the problem");
+                Log.d("GeoPost Location", "Ask the user to fix the problem");
                 //If the user accepts to install the google play services,
                 //a new app will open. When the user gets back to this activity,
                 //the onStart method is invoked again.
                 googleApiAvailability.getErrorDialog(this, status, 2404).show();
             } else {
-                Log.d("Location", "The problem cannot be fixed");
+                Log.d("GeoPost Location", "The problem cannot be fixed");
             }
         }
 
@@ -181,19 +181,19 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d("Location", "GoogleApiClient connected");
+        Log.d("GeoPost Location", "GoogleApiClient connected");
         googleApiClientReady = true;
         checkAndStartLocationUpdate();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d("Location", "GoogleApiClient suspended");
+        Log.d("GeoPost Location", "GoogleApiClient suspended");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d("Location", "GoogleApiClient failed");
+        Log.d("GeoPost Location", "GoogleApiClient failed");
         Toast.makeText(getApplicationContext(), "Unable to start GooglePlayServices.", Toast.LENGTH_LONG).show();
     }
 
@@ -237,7 +237,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
     private void checkAndStartLocationUpdate() {
         if (permissionGranted && googleApiClientReady) {
-            Log.d("Location", "Start updating location");
+            Log.d("GeoPost Location", "Start updating location");
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(10000);
             mLocationRequest.setFastestInterval(5000);
@@ -255,7 +255,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("Location", "Location update received: " + location.toString());
+        Log.d("GeoPost Location", "Location update received: " + location.toString());
 
 
     }
@@ -265,11 +265,11 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         ImageButton profilo = (ImageButton) findViewById(R.id.profilo);
         ImageButton aggamico = (ImageButton) findViewById(R.id.aggamici);
         if(profilo.getVisibility() == View.INVISIBLE) {
-            Log.d("Button", "VISIBLE");
+            Log.d("GeoPost Button", "VISIBLE");
             profilo.setVisibility(View.VISIBLE);
             aggamico.setVisibility(View.VISIBLE);
         }else{
-            Log.d("Button", "INVISIBLE");
+            Log.d("GeoPost Button", "INVISIBLE");
             profilo.setVisibility(View.INVISIBLE);
             aggamico.setVisibility(View.INVISIBLE);
         }

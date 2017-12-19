@@ -71,10 +71,10 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         //posizione esercizio prof
         //next line checks if user has granted permission to use fine location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)  {
-            Log.d("Location", "Permission granted");
+            Log.d("GeoPost Location", "Permission granted");
             permissionGranted = true;
         } else {
-            Log.d("Location", "Permission NOT granted");
+            Log.d("GeoPost Location", "Permission NOT granted");
             // we request the permission. When done,
             // the onRequestPermissionsResult method is called
             ActivityCompat.requestPermissions(this,
@@ -87,7 +87,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     @Override
     public void onMapReady(GoogleMap map){
-        Log.d("Location", "Map is ready!");
+        Log.d("GeoPost Location", "Map is ready!");
         mMap = map;
     }
 
@@ -102,17 +102,17 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(this);
         if(status == ConnectionResult.SUCCESS) {
-            Log.d("Location", "GooglePlayServices available");
+            Log.d("GeoPost Location", "GooglePlayServices available");
         } else {
-            Log.d("Location", "GooglePlayServices UNAVAILABLE");
+            Log.d("GeoPost Location", "GooglePlayServices UNAVAILABLE");
             if(googleApiAvailability.isUserResolvableError(status)) {
-                Log.d("Location", "Ask the user to fix the problem");
+                Log.d("GeoPost Location", "Ask the user to fix the problem");
                 //If the user accepts to install the google play services,
                 //a new app will open. When the user gets back to this activity,
                 //the onStart method is invoked again.
                 googleApiAvailability.getErrorDialog(this, status, 2404).show();
             } else {
-                Log.d("Location", "The problem cannot be fixed");
+                Log.d("GeoPost Location", "The problem cannot be fixed");
             }
         }
 
@@ -130,7 +130,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     public void Pubblica(View v) {
         String messaggio = mex.getText().toString();
-        Log.d("Location", "messaggio = "+messaggio);
+        Log.d("GeoPost Location", "messaggio = "+messaggio);
 
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/status_update?session_id="+idsession+"&message="+messaggio+"&lat="+latitudine+"&lon="+longitudine;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -138,7 +138,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("AggStato", "response is " + response);
+                        Log.d("GeoPost AggStato", "response is " + response);
                         Toast.makeText(getApplicationContext(), "Stato aggiornato con successo", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(AggStato.this, AmiciSeguiti.class);
                         startActivity(intent);
@@ -147,7 +147,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("AggStato", "That didn't work!");
+                Log.d("GeoPost AggStato", "That didn't work!");
                 Toast.makeText(getApplicationContext(), "Impossibile aggiornare lo stato", Toast.LENGTH_LONG).show();
             }
         });
@@ -164,19 +164,19 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d("Location", "GoogleApiClient connected");
+        Log.d("GeoPost Location", "GoogleApiClient connected");
         googleApiClientReady = true;
         checkAndStartLocationUpdate();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d("Location", "GoogleApiClient suspended");
+        Log.d("GeoPost Location", "GoogleApiClient suspended");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d("Location", "GoogleApiClient failed");
+        Log.d("GeoPost Location", "GoogleApiClient failed");
         Toast.makeText(getApplicationContext(), "Unable to start GooglePlayServices.", Toast.LENGTH_LONG).show();
     }
 
@@ -220,7 +220,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     private void checkAndStartLocationUpdate() {
         if (permissionGranted && googleApiClientReady) {
-            Log.d("Location", "Start updating location");
+            Log.d("GeoPost Location", "Start updating location");
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(10000);
             mLocationRequest.setFastestInterval(5000);
@@ -238,7 +238,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("Location", "Location update received: " + location.toString());
+        Log.d("GeoPost Location", "Location update received: " + location.toString());
 
         mMap.clear();
 
@@ -247,7 +247,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         myPosition = new LatLng(latitudine, longitudine);
         mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
-        Log.d("Location", "lat: "+latitudine+" longi: "+longitudine);
+        Log.d("GeoPost Location", "lat: "+latitudine+" longi: "+longitudine);
 
     }
 }
