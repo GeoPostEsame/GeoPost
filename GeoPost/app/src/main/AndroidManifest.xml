@@ -23,14 +23,14 @@
         <activity android:name=".intent.AmiciSeguiti" />
         <activity
             android:name=".intent.AggStato"
-            android:label="Agg Stato"
+            android:label="Aggiungi Stato"
             android:parentActivityName=".intent.AmiciSeguiti" />
         <activity
             android:name=".intent.Profilo"
             android:label="Profilo"
             android:parentActivityName=".intent.AmiciSeguiti" />
         <activity android:name=".intent.AggAmici"
-            android:label="AggAmici"
+            android:label="Aggiungi Amici"
             android:parentActivityName=".intent.AmiciSeguiti"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

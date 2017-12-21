@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -115,7 +116,15 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 Log.d("GeoPost Prof latmyModel", MyModel.getInstance().getLatidMe() + "");
                                 Log.d("GeoPost Prof lonmyModel", MyModel.getInstance().getLongiMe() + "");
 
-                                mMap.addMarker(new MarkerOptions().position(myPosition).title("Marker in myPosition"));
+                                MarkerOptions mp1 = new MarkerOptions();
+                                mp1.position(myPosition).title("Marker in myPosition");
+
+                                mp1.draggable(true);
+                                //prova a vedere se preferisci questo a 50 px o meglio a 20 px
+                                mp1.icon(BitmapDescriptorFactory.fromResource(R.drawable.new_blue_dot50));
+                                //mp1.icon(BitmapDescriptorFactory.fromResource(R.drawable.new_blue_dot20));
+
+                                mMap.addMarker(mp1);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
                             }
 

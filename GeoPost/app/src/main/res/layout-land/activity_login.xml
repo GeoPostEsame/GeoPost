@@ -56,7 +56,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="32dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="180dp"
         app:layout_constraintBottom_toBottomOf="parent"
