@@ -19,14 +19,30 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
-            android:background="@drawable/my_border"
             android:padding="5dp"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/map"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/my_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/messaggio"
+            app:layout_constraintLeft_toLeftOf="@+id/messaggio"
+            app:layout_constraintRight_toRightOf="@+id/messaggio"
+            app:layout_constraintTop_toBottomOf="@+id/nomeutente"
+            app:layout_constraintVertical_bias="0.548"
+            android:layout_marginLeft="24dp"
+            app:layout_constraintHorizontal_bias="0.478"
+            android:layout_marginRight="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp" />
 
         <TextView
             android:id="@+id/messaggio"
@@ -35,11 +51,10 @@
             android:gravity="left"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/my_border"
             android:padding="5dp"
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textColor="@color/common_google_signin_btn_text_light_default"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/map"
             android:layout_marginTop="58dp"
@@ -70,12 +85,8 @@
             android:layout_weight="1"
             class="com.google.android.gms.maps.SupportMapFragment"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginTop="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:layout_marginRight="0dp"
             app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
