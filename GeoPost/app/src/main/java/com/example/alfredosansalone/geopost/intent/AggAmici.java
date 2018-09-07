@@ -88,7 +88,7 @@ public class AggAmici extends AppCompatActivity {
                                             listdata.add(s);
                                         }
                                     }
-                                    //adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
+                                    adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
                                     username.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
