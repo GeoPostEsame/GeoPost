@@ -1,5 +1,7 @@
 package com.example.alfredosansalone.geopost.intent;
 
+import android.location.Location;
+
 /**
  * Created by alfredosansalone on 27/11/17.
  */
@@ -8,8 +10,8 @@ public class MyModel {
     private static final MyModel ourInstance = new MyModel();
 
     private String idsession;
-    private double latid;
-    private double longi;
+    private String username;
+    private Location position;
 
     public static MyModel getInstance() {
         return ourInstance;
@@ -23,16 +25,24 @@ public class MyModel {
         idsession = value;
     }
 
-    public void setLatidMe(double lat) { latid = lat; }
+    public void setUsername(String user) {
+        username = user;
+    }
 
-    public void setLongiMe(double lon) { longi = lon; }
+    public void setPosition(Location p){
+        position = p;
+    }
+
+    public Location getPosition(){
+        return position;
+    }
 
     public String getIdsession(){
         return idsession;
     }
+    public String getUsername(){
+        return username;
+    }
 
-    public double getLatidMe() { return latid;}
-
-    public double getLongiMe() { return longi;}
 
 }

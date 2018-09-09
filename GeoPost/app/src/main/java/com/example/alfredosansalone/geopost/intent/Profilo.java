@@ -111,10 +111,6 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
 
                                 //AGGIUNTO GET E SET POSITION IN MYMODEL
                                 myPosition = new LatLng(latitudine, longitudine);
-                                MyModel.getInstance().setLatidMe(latitudine);
-                                MyModel.getInstance().setLongiMe(longitudine);
-                                Log.d("GeoPost Prof latmyModel", MyModel.getInstance().getLatidMe() + "");
-                                Log.d("GeoPost Prof lonmyModel", MyModel.getInstance().getLongiMe() + "");
 
                                 MarkerOptions mp1 = new MarkerOptions();
                                 mp1.position(myPosition).title("Marker in myPosition");

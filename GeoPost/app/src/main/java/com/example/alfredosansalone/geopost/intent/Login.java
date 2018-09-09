@@ -86,6 +86,8 @@ public class Login extends AppCompatActivity {
                         risp = response;
                         Log.d("GeoPost Login ", "risp = "+ risp);
 
+                        MyModel.getInstance().setUsername(user);
+
                         MyModel.getInstance().setIdsession(risp);
                         Log.d("GeoPost Login myModel", MyModel.getInstance().getIdsession());
 

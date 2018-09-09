@@ -32,6 +32,7 @@ public class AggAmici extends AppCompatActivity {
 
     AutoCompleteTextView username;
     String user;
+    String myusername;
     String idsession;
     RequestQueue queue;
     ArrayAdapter<String> adapter;
@@ -45,6 +46,8 @@ public class AggAmici extends AppCompatActivity {
         setContentView(R.layout.activity_agg_amici);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        myusername = MyModel.getInstance().getUsername();
 
         listdata = new ArrayList<>();
         username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
@@ -85,7 +88,9 @@ public class AggAmici extends AppCompatActivity {
                                         for(int i = 0; i < results.length(); i++){
                                             String s = results.get(i).toString();
                                             Log.d("GeoPost User", "s= " + s);
-                                            listdata.add(s);
+                                            if(!s.equals(myusername)) {
+                                                listdata.add(s);
+                                            }
                                         }
                                     }
                                     adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
@@ -121,6 +126,7 @@ public class AggAmici extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
+
     }
 
     public void Follow(View v) {
