@@ -127,7 +127,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                             }
                             Log.d("Valori Min Max", maxLon + " " + maxLat);
-                            //Movimento telecamera per centrare utenti
+                            //Movimento telecamera per centrare utenti!
                             LatLngBounds bounds = new LatLngBounds(new LatLng(minLat-0.5, minLon-0.5), new LatLng(maxLat+0.5, maxLon+0.5));
                             mGMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
                             Log.d("Valori Min Max", "Passo");
