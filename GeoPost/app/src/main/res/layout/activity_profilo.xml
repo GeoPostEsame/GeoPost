@@ -26,17 +26,19 @@
 
     <View
         android:id="@+id/my_line"
-        android:layout_width="match_parent"
+        android:layout_width="304dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/messaggio"
-        app:layout_constraintLeft_toLeftOf="@id/messaggio"
-        app:layout_constraintRight_toRightOf="@id/messaggio"
+        app:layout_constraintBottom_toTopOf="@+id/messaggio"
+        app:layout_constraintLeft_toLeftOf="@+id/messaggio"
+        app:layout_constraintRight_toRightOf="@+id/messaggio"
         app:layout_constraintTop_toBottomOf="@+id/nomeutente"
         app:layout_constraintVertical_bias="0.548"
         android:layout_marginLeft="24dp"
         app:layout_constraintHorizontal_bias="0.478"
-        android:layout_marginRight="24dp" />
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
 
     <TextView
         android:id="@+id/messaggio"
@@ -79,18 +81,13 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="32dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messaggio"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

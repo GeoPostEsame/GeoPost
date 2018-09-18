@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 
 public class ListofContacts extends ArrayList<Contact> {
-
+    //Crea lista contatti con arraylist
     public ListofContacts() {
         super();
         //this.add(new Contact("stefano", "frecc","45.473968", "9.200301"));

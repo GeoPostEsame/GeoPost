@@ -104,7 +104,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             JSONArray array = risp.getJSONArray("followed");
                             for(int i = 0; i<array.length(); i++) {
                                 JSONObject followed = array.getJSONObject(i);
-                                if (followed.get("lat").toString() != "null") {
+                                if (!followed.get("lat").toString().equals("null")) {
                                     lat = Double.parseDouble(followed.get("lat").toString());
                                     lon = Double.parseDouble(followed.get("lon").toString());
                                     LatLng position = new LatLng(lat, lon);
@@ -126,9 +126,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 }
 
                             }
-
+                            Log.d("Valori Min Max", maxLon + " " + maxLat);
+                            //Movimento telecamera per centrare utenti
                             LatLngBounds bounds = new LatLngBounds(new LatLng(minLat-0.5, minLon-0.5), new LatLng(maxLat+0.5, maxLon+0.5));
                             mGMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+                            Log.d("Valori Min Max", "Passo");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
