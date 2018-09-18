@@ -19,6 +19,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
 import com.example.alfredosansalone.geopost.intent.MyModel;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import org.json.JSONArray;
@@ -28,17 +32,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements LocationListener {
 
     RequestQueue queue;
     ArrayList<Contact> users;
     JSONArray follarr;
     View mView;
     ContactsAdapter adapter;
+    Location position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Prova lista", "prova 3");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d("GeoPost Location", "Location update received: " + location.toString());
+        position = location;
+        MyModel.getInstance().setPosition(position);
 
     }
 
@@ -49,10 +62,11 @@ public class ListFragment extends Fragment {
 
         queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-
+        Log.d("Prova lista", "prova 1");
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + MyModel.getInstance().getIdsession();
 
-        StringRequest followed = new StringRequest(
+        StringRequest followed;
+        followed = new StringRequest(
                 Request.Method.GET,
                 url,
                 new Response.Listener<String>() {
@@ -81,6 +95,7 @@ public class ListFragment extends Fragment {
                                         Contact user = new Contact(u, m);
                                         users.add(user);
                                     }
+                                    Log.d("Prova lista", "prova 2");
                                 }
                             }
                         } catch (JSONException e) {

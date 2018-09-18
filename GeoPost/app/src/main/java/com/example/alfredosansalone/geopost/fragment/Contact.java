@@ -1,6 +1,8 @@
 package com.example.alfredosansalone.geopost.fragment;
 
 import android.location.Location;
+import android.util.Log;
+
 import com.example.alfredosansalone.geopost.intent.MyModel;
 
 /**
@@ -10,13 +12,15 @@ import com.example.alfredosansalone.geopost.intent.MyModel;
 class Contact implements Comparable<Contact> {
     private String user = null;
     private String messaggio = null;
-    private float distance;
+    private float distance = 0f;
 
 
     public Contact(String user, String messaggio, Location l) {
         this.user = user;
         this.messaggio = messaggio;
-        distance = (MyModel.getInstance().getPosition().distanceTo(l))/1000;
+        Log.d("Distanza", l+"");
+        //this.distance = (MyModel.getInstance().getPosition().distanceTo(l))/1000;
+        Log.d("Distance", ""+distance);
     }
 
     public Contact(String u, String m){
