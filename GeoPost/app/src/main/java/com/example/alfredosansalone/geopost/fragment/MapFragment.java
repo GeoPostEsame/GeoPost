@@ -113,8 +113,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     lat = Double.parseDouble(followed.get("lat").toString());
                                     lon = Double.parseDouble(followed.get("lon").toString());
                                     LatLng position = new LatLng(lat, lon);
+                                    //Aggiunta marker per utente
                                     mGMap.addMarker(new MarkerOptions().position(position).title(followed.get("username").toString()).snippet(followed.get("msg").toString()));
 
+                                    //Calcolo riquadro zoom mappa
                                     if(minLat == 0 | lat < minLat){
                                         minLat = lat;
                                     }
