@@ -1,6 +1,7 @@
 package com.example.alfredosansalone.geopost.intent;
 
 import android.location.Location;
+import android.location.LocationManager;
 
 /**
  * Created by alfredosansalone on 27/11/17.
@@ -34,7 +35,8 @@ public class MyModel {
     }
 
     public Location getPosition(){
-        return position;
+        //Location position = new Location(LocationManager.GPS_PROVIDER);
+        return position ;
     }
 
     public String getIdsession(){

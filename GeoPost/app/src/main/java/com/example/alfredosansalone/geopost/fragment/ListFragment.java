@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ListFragment extends Fragment implements LocationListener {
+public class ListFragment extends Fragment /*implements LocationListener*/ {
 
     RequestQueue queue;
     ArrayList<Contact> users;
@@ -47,13 +47,13 @@ public class ListFragment extends Fragment implements LocationListener {
         Log.d("Prova lista", "prova 3");
     }
 
-    @Override
+    /*@Override
     public void onLocationChanged(Location location) {
         Log.d("GeoPost Location", "Location update received: " + location.toString());
         position = location;
         MyModel.getInstance().setPosition(position);
 
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class ListFragment extends Fragment implements LocationListener {
                                     JSONObject obj = new JSONObject(follarr.get(i).toString());
                                     Log.d("utente", obj.toString());
                                     Location l = new Location(LocationManager.GPS_PROVIDER);
+                                    //MyModel.getInstance().setPosition(l);
                                     String m = null;
                                     String u = obj.get("username").toString();
                                     if (!obj.get("msg").toString().equals("null")) {
@@ -92,8 +93,8 @@ public class ListFragment extends Fragment implements LocationListener {
                                         users.add(user);
                                     }
                                     else{
-                                        Contact user = new Contact(u, m);
-                                        users.add(user);
+                                        //Contact user = new Contact(u, m);
+                                        //users.add(user);
                                     }
                                     Log.d("Prova lista", "prova 2");
                                 }

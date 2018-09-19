@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -46,6 +47,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
     String idsession;
     RequestQueue queue;
+    Location myposition = new Location(LocationManager.GPS_PROVIDER);
 
     private static final int LOCATION_PERMISSION = 1;
     private GoogleApiClient mGoogleApiClient = null;
@@ -256,6 +258,8 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onLocationChanged(Location location) {
         Log.d("GeoPost Location", "Location update received: " + location.toString());
+        myposition = location;
+        MyModel.getInstance().setPosition(myposition);
 
 
     }
