@@ -90,6 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap gmap) {
         //Avviso di mappa quando è caricata
+        //Prova commento
         mGMap = gmap;
         gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
