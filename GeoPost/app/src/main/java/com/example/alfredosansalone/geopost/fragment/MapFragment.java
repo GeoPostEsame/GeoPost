@@ -2,6 +2,7 @@ package com.example.alfredosansalone.geopost.fragment;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
 import com.example.alfredosansalone.geopost.intent.AmiciSeguiti;
 import com.example.alfredosansalone.geopost.intent.MyModel;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -46,6 +49,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     JSONObject risp;
     String idsession;
     RequestQueue queue;
+    Location myLoc;
 
     //valori per il la visualizzazione dei marker nella mappa
     double maxLat = 0d;
@@ -81,6 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMView.getMapAsync(this);
         }
     }
+
 
     @Override
     public void onMapReady(GoogleMap gmap) {

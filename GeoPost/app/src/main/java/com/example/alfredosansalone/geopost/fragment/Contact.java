@@ -19,7 +19,8 @@ class Contact implements Comparable<Contact> {
         this.user = user;
         this.messaggio = messaggio;
         Log.d("Distanza", l+"");
-        //this.distance = (MyModel.getInstance().getPosition().distanceTo(l))/1000;
+        Log.d("Position", ""+MyModel.getInstance().getPosition());
+        //distance = (MyModel.getInstance().getPosition().distanceTo(l))/1000;
         Log.d("Distance", ""+distance);
     }
 
