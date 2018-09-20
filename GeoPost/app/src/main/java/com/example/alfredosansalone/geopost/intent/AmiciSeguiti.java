@@ -19,11 +19,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.alfredosansalone.geopost.R;
 import com.example.alfredosansalone.geopost.fragment.ListFragment;
@@ -34,12 +30,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -86,7 +76,6 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
         queue = Volley.newRequestQueue(this);
 
-        //posizione esercizio prof
         //next line checks if user has granted permission to use fine location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)  {
             Log.d("GeoPost Location", "Permission granted");
@@ -108,44 +97,6 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
 
-        /* String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + idsession;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.d("Amiciseguiti", "response is " + response);
-
-                        try {
-                            JSONObject risp = new JSONObject(response);
-                            Log.d("Amiciseguiti", risp.toString());
-
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                //Gestione errori
-                Log.d("Amiciseguiti", "on error response is " + volleyError);
-                if(volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
-                    VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
-                    volleyError = error;
-                    Log.d("Amiciseguiti", "volleyError is " + volleyError);
-                    String errore = volleyError.toString().replace("com.android.volley.VolleyError: ", "");
-                    Log.d("Amiciseguiti", "stringa di errore " + errore);
-                }
-            }
-        });
-        queue.add(stringRequest); */
-
-        // posizione esercizio prof
         //Check if GooglePlayServices are available
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(this);
@@ -175,7 +126,6 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
         mGoogleApiClient.connect();
     }
 
-    //override per posizione esercizio prof
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();

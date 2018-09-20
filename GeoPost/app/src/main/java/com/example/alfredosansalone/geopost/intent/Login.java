@@ -1,6 +1,5 @@
 package com.example.alfredosansalone.geopost.intent;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,10 +42,6 @@ public class Login extends AppCompatActivity {
 
         //SharedPreferences per salvare idsession sul dispositivo
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        /*SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("ID_SESSION", null);
-        editor.commit();*/
 
     }
 

@@ -116,9 +116,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 mp1.position(myPosition).title("Marker in myPosition");
 
                                 mp1.draggable(true);
-                                //prova a vedere se preferisci questo a 50 px o meglio a 20 px
                                 mp1.icon(BitmapDescriptorFactory.fromResource(R.drawable.new_blue_dot50));
-                                //mp1.icon(BitmapDescriptorFactory.fromResource(R.drawable.new_blue_dot20));
 
                                 mMap.addMarker(mp1);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 15));
@@ -180,29 +178,4 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
         return false;
     }
 
-    /*public void Logout(View v) {
-
-        String url = "https://ewserver.di.unimi.it/mobicomp/geopost/logout?session_id=" + idsession;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.d("Logout", "response is " + response);
-                        Log.d("Logout", "Logout");
-                        Intent intent = new Intent(Profilo.this, Login.class);
-                        startActivity(intent);
-                        //MyModel.getInstance().setIdsession(null);
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Logout", "That didn't work!");
-            }
-        });
-        queue.add(stringRequest);
-
-    }*/
 }

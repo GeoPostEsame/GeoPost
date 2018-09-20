@@ -68,7 +68,6 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         mex = (EditText)findViewById(R.id.messaggio);
         queue = Volley.newRequestQueue(this);
 
-        //posizione esercizio prof
         //next line checks if user has granted permission to use fine location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)  {
             Log.d("GeoPost Location", "Permission granted");
@@ -97,7 +96,6 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
         super.onStart();
         idsession = MyModel.getInstance().getIdsession();
 
-        // posizione esercizio prof
         //Check if GooglePlayServices are available
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(this);
@@ -155,7 +153,6 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
 
     }
 
-    //override per posizione esercizio prof
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();

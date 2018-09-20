@@ -1,7 +1,6 @@
 package com.example.alfredosansalone.geopost.intent;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,7 +51,6 @@ public class AggAmici extends AppCompatActivity {
         listdata = new ArrayList<>();
         username = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
         adapter = new ArrayAdapter<String>(AggAmici.this, android.R.layout.simple_list_item_1, listdata);
-        //username.setAdapter(adapter);
 
 
         username.addTextChangedListener(new TextWatcher() {
@@ -146,8 +144,6 @@ public class AggAmici extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Utente seguito", Toast.LENGTH_LONG).show();
                         username.setText("");
 
-                        //Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
-                        //startActivity(intent);
                     }
                     //Gestione errori (Non trovato, Gia amico, Non puoi seguire te stesso)
                 }, new Response.ErrorListener() {

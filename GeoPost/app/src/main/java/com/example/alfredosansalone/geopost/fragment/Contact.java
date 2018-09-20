@@ -5,9 +5,7 @@ import android.util.Log;
 
 import com.example.alfredosansalone.geopost.intent.MyModel;
 
-/**
- * Created by alfredosansalone on 13/12/17.
- */
+
 
 class Contact implements Comparable<Contact> {
     private String user = null;
