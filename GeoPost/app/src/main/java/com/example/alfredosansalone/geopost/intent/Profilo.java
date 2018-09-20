@@ -101,9 +101,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 messaggio.setText("Non hai ancora pubblicato uno stato e non viene visualizzata la posizione");
                             }
                             String lati = risp.get("lat").toString();
-                            if(lati.equals("null")) {
-
-                            }else{
+                            if(!lati.equals("null")) {
                                 Log.d("GeoPost Profilo", "lat: " + risp.get("lat").toString());
                                 latitudine = Double.parseDouble(lati);
                                 Log.d("GeoPost Profilo", "lon: " + risp.get("lon").toString());
@@ -113,7 +111,7 @@ public class Profilo extends AppCompatActivity implements OnMapReadyCallback {
                                 myPosition = new LatLng(latitudine, longitudine);
 
                                 MarkerOptions mp1 = new MarkerOptions();
-                                mp1.position(myPosition).title("Marker in myPosition");
+                                mp1.position(myPosition).title("La tua ultima posizione!");
 
                                 mp1.draggable(true);
                                 mp1.icon(BitmapDescriptorFactory.fromResource(R.drawable.new_blue_dot50));
