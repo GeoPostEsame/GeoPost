@@ -235,7 +235,7 @@ public class AggStato extends AppCompatActivity implements OnMapReadyCallback, G
             }
         }
     }
-
+    //Pulizia marker precedente e creazione nuovo marker
     @Override
     public void onLocationChanged(Location location) {
         Log.d("GeoPost Location", "Location update received: " + location.toString());

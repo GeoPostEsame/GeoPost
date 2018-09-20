@@ -56,6 +56,7 @@ public class AmiciSeguiti extends AppCompatActivity implements GoogleApiClient.C
 
 
     //PULSANTE GESTIONE VISTA
+    //Gestione dell'animazione per la comparsa e scomparsa dei bottoni
     public void Vista(View v){
         ImageButton mappa = (ImageButton) findViewById(R.id.mappa);
         ImageButton lista = (ImageButton) findViewById(R.id.lista);

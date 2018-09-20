@@ -65,6 +65,7 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
         }
 
+        //Con idsession passo ad intent AmiciSeguiti
         if(idsession!=null){
             Intent intent = new Intent(Login.this, AmiciSeguiti.class);
             startActivity(intent);
@@ -110,6 +111,7 @@ public class Login extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                 builder.setMessage(risp).setTitle("Login Error");
 
+                //Setto tasto ok per chiusura finestra
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 

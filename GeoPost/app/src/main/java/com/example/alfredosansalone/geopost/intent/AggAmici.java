@@ -149,6 +149,7 @@ public class AggAmici extends AppCompatActivity {
                         //Intent intent = new Intent(AggAmici.this, AmiciSeguiti.class);
                         //startActivity(intent);
                     }
+                    //Gestione errori (Non trovato, Gia amico, Non puoi seguire te stesso)
                 }, new Response.ErrorListener() {
 
                     @Override
