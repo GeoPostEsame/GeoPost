@@ -1,8 +1,5 @@
 package com.example.alfredosansalone.geopost.fragment;
 
-/**
- * Created by alfredosansalone on 13/12/17.
- */
 
 import android.content.Context;
 import android.view.LayoutInflater;
