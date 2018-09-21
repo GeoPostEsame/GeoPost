@@ -41,7 +41,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     String idsession;
     RequestQueue queue;
 
-    //valori per il la visualizzazione dei marker nella mappa
+    //valori per la visualizzazione dei marker nella mappa
     double maxLat = 0d;
     double maxLon = 0d;
     double minLat = 0d;
