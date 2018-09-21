@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -94,6 +95,16 @@ public class ListFragment extends Fragment  {
                         ListView userList = (ListView) mView.findViewById(R.id.list);
                         adapter = new ContactsAdapter(getActivity(), android.R.layout.simple_list_item_1, users);
                         userList.setAdapter(adapter);
+
+                        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Log.d("MyListFragment", "position: " + position);
+                                Contact contatto = (Contact) parent.getItemAtPosition(position);
+                                Log.d("MyListFragment", "parent: " + contatto.getUser());
+
+                            }
+                        });
 
                     }
                 }, new Response.ErrorListener() {
