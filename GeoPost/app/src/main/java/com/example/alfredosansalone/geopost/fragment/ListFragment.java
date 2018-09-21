@@ -51,7 +51,6 @@ public class ListFragment extends Fragment  {
 
         queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        Log.d("Prova lista", "prova 1");
         String url = "https://ewserver.di.unimi.it/mobicomp/geopost/followed?session_id=" + MyModel.getInstance().getIdsession();
 
         StringRequest followed;
